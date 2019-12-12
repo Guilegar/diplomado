@@ -16,3 +16,5 @@ Route::get('/', function () {
 });
 
 Route::resource('comuna', 'ComunaController');
+
+Route::resource('municipio', 'MunicipioController');
