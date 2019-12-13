@@ -11,9 +11,11 @@
 |
 */
 
-Route::get('/', function () {
+Route::get('/welcome', function () {
     return view('welcome');
 });
+
+//Route::get('welcome',view('welcome'));
 
 Route::resource('comuna', 'ComunaController');
 

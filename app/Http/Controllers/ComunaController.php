@@ -21,7 +21,8 @@ class ComunaController extends Controller
         $comunas = DB::table('tb_comuna as c')
                     ->join('tb_municipio','c.muni_codi','=','tb_municipio.muni_codi')
                     ->select('c.comu_codi','c.comu_nomb','c.muni_codi','tb_municipio.muni_nomb')
-                    ->get();
+                   // ->get();
+                    ->paginate(15);
         return view('comuna.index', compact('comunas'));
        //return $comunas;
     }
@@ -46,13 +47,18 @@ class ComunaController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        $comuna = new Comuna;
-        //$flight->name = $request->name
-        $comuna->comu_nomb = $request->comu_nomb;
-        $comuna->muni_codi = $request->muni_codi;
-        $comuna->save();
-        return redirect()->route('comuna.index')->with('status','guardado');
+        
+            request()->validate([
+                 'comu_nomb' => 'required|min:5',
+                 'muni_codi' => 'required'
+            ]);
+
+            $comuna = new Comuna;
+            //$flight->name = $request->name
+            $comuna->comu_nomb = $request->comu_nomb;
+            $comuna->muni_codi = $request->muni_codi;
+            $comuna->save();
+            return redirect()->route('comuna.index')->with('status','guardado');
     }
 
     /**
